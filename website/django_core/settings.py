@@ -133,3 +133,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")  # Your email address
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  # Your email password or app-specific password if 2FA is enabled
 DEFAULT_FROM_EMAIL = os.environ.get("CONTACT_EMAIL")  # Set the default "From" email
+
+CORS_ALLOWED_ORIGINS = [
+    "https://django-f31b4a90a5064fbe-324465057392.us-central1.run.app/", 
+    "http://localhost:8000",  # Django local server
+]
