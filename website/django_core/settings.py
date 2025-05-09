@@ -138,3 +138,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://django-f31b4a90a5064fbe-324465057392.us-central1.run.app/", 
     "http://localhost:8000",  # Django local server
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-f31b4a90a5064fbe-324465057392.us-central1.run.app',
+    "http://localhost:8000",
+]
