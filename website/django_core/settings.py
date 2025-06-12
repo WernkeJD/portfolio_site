@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-tvsr7dmeh6u^ho1dib&($7w76+ll_*8%)=j=6*mt^hm%b-s9q4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app']
+ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'https://portfolio-site-lajv.onrender.com']
 
 
 # Application definition
@@ -136,10 +136,12 @@ DEFAULT_FROM_EMAIL = os.environ.get("CONTACT_EMAIL")  # Set the default "From" e
 
 CORS_ALLOWED_ORIGINS = [
     "https://django-f31b4a90a5064fbe-324465057392.us-central1.run.app/", 
+    "https://portfolio-site-lajv.onrender.com",  # Render production URL
     "http://localhost:8000",  # Django local server
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://django-f31b4a90a5064fbe-324465057392.us-central1.run.app',
+    "https://portfolio-site-lajv.onrender.com",
     "http://localhost:8000",
 ]
