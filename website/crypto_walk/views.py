@@ -251,6 +251,22 @@ def portfolio_comparison(request: HttpRequest):
     })
 
 
+def clear_data(request: HttpRequest):
+    selections = Selections.objects.all()
+    portfolios = Portfolio.objects.all()
+
+    portfolios.delete()
+    selections.delete()
+
+    selections_check = Selections.objects.all()
+    portfolios_check = Portfolio.objects.all()
+
+    if not selections_check and not portfolios_check:
+        return HttpResponse("data cleared", status=200)
+    else:
+        return HttpResponse("data not deleted", status=500)
+
+
 
 
 

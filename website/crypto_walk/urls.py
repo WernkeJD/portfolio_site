@@ -6,5 +6,6 @@ urlpatterns = [
     path("update_clicks/", views.update_clicks, name="update_clicks"),
     path("update_selections/", views.update_selections, name="update_selections"),
     path("generate_portfolio_value/", views.generate_portfolio_value, name="update_portfolio_value"),
-    path("portfolio_comparison/", views.portfolio_comparison, name="portfolio_comparison")
+    path("portfolio_comparison/", views.portfolio_comparison, name="portfolio_comparison"),
+    path('delete_port/', views.clear_data, name="clear_data")
 ]
