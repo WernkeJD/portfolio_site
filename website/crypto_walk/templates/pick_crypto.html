@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %}
+{% comment %} {% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %} {% endcomment %}
+{% block body_class %}
+    <body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div id="onboard_modal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center center">
+    <!-- Backdrop -->
+    <div id="onboard_backdrop"
+        class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Dialog -->
+    <div role="dialog" aria-modal="true" aria-labelledby="onboard_title"
+        class="relative mx-4 w-full max-w-lg rounded-3xl border border-white/15 bg-slate-900 text-white shadow-2xl">
+        <div class="p-6 sm:p-8">
+        <div class="flex items-start justify-between">
+            <h2 id="onboard_title" class="text-2xl font-semibold">Welcome!</h2>
+            <button id="onboard_close"
+                    class="ml-4 rounded-xl border border-white/10 px-3 py-1 text-sm opacity-70 transition hover:opacity-100"
+                    aria-label="Close">
+            ✕
+            </button>
+        </div>
+        <p class="mt-4 text-slate-200">
+            You’ll be instructed to select <span class="font-semibold">one crypto coin</span> and
+            <span class="font-semibold">one stock</span>. Your picks will be used to build a paper portfolio.
+        </p>
+
+        <ul class="mt-4 list-disc space-y-1 pl-6 text-slate-300">
+            <li>First, choose between the two crypto options.</li>
+            <li>Then, choose between the two stock options.</li>
+            <li>You can only pick one from each category.</li>
+        </ul>
+
+        <div class="mt-6 flex items-center justify-end gap-3">
+            <label class="inline-flex select-none items-center gap-2 text-sm opacity-80">
+            <input id="onboard_dont_show" type="checkbox" class="h-4 w-4 rounded border-slate-600 bg-slate-800" />
+            Don’t show this again
+            </label>
+            <button id="onboard_confirm"
+                    class="rounded-2xl bg-white/90 px-4 py-2 font-medium text-slate-900 transition hover:bg-white">
+            Got it
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- CRYPTO -->
+    <div id="crypto_section" class="min-h-screen w-screen grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+        <!-- Left card -->
+        <div id="crypto1" data-value="{{crypto1}}"
+            class="choice-card relative flex items-center justify-center rounded-3xl border border-white/15 bg-white/5 backdrop-blur shadow-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)] crypto-item">
+        <!-- Decorative gradient -->
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-fuchsia-500/10 to-cyan-400/20"></div>
+        <!-- Inner content frame -->
+        <div class="relative w-full h-full flex items-center justify-center p-10">
+            <div class="w-full h-full flex items-center justify-center rounded-2xl border border-white/15 bg-black/40">
+            <h1 class="text-4xl md:text-5xl font-semibold tracking-wide">{{crypto1}}</h1>
+            </div>
+        </div>
+        </div>
+
+        <!-- Right card -->
+        <div id="crypto2" data-value="{{crypto2}}"
+            class="choice-card relative flex items-center justify-center rounded-3xl border border-white/15 bg-white/5 backdrop-blur shadow-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)] crypto-item">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-fuchsia-500/10 to-cyan-400/20"></div>
+        <div class="relative w-full h-full flex items-center justify-center p-10">
+            <div class="w-full h-full flex items-center justify-center rounded-2xl border border-white/15 bg-black/40">
+            <h1 class="text-4xl md:text-5xl font-semibold tracking-wide">{{crypto2}}</h1>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- STOCKS (kept hidden by default) -->
+    <div id="stock_section" class="min-h-screen w-screen grid grid-cols-1 md:grid-cols-2 gap-6 p-6 hidden">
+        <!-- Left card (id unchanged: crypto1) -->
+        <div id="stock1" data-value="{{stock1}}"
+            class="choice-card relative flex items-center justify-center rounded-3xl border border-white/15 bg-white/5 backdrop-blur shadow-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)] stock-item">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-400/20 via-teal-400/10 to-sky-400/20"></div>
+        <div class="relative w-full h-full flex items-center justify-center p-10">
+            <div class="w-full h-full flex items-center justify-center rounded-2xl border border-white/15 bg-black/40">
+            <h1 class="text-4xl md:text-5xl font-semibold tracking-wide">{{stock1}}</h1>
+            </div>
+        </div>
+        </div>
+
+        <!-- Right card (id unchanged: crypto2) -->
+        <div id="stock2" data-value="{{stock2}}"
+            class="choice-card relative flex items-center justify-center rounded-3xl border border-white/15 bg-white/5 backdrop-blur shadow-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)] stock-item">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-400/20 via-teal-400/10 to-sky-400/20"></div>
+        <div class="relative w-full h-full flex items-center justify-center p-10">
+            <div class="w-full h-full flex items-center justify-center rounded-2xl border border-white/15 bg-black/40">
+            <h1 class="text-4xl md:text-5xl font-semibold tracking-wide">{{stock2}}</h1>
+            </div>
+        </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function () {
+    const modal = document.getElementById('onboard_modal');
+    const closeBtn = document.getElementById('onboard_close');
+    const confirmBtn = document.getElementById('onboard_confirm');
+    const backdrop = document.getElementById('onboard_backdrop');
+    const dontShow = document.getElementById('onboard_dont_show');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      document.documentElement.classList.add('overflow-hidden'); // prevent background scroll
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.documentElement.classList.remove('overflow-hidden');
+      if (dontShow.checked) {
+        try { localStorage.setItem('onboard_modal_dismissed', '1'); } catch (e) {}
+      }
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Escape') closeModal();
+    }
+
+    // Wire up events
+    closeBtn.addEventListener('click', closeModal);
+    confirmBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+    document.addEventListener('keydown', handleKey);
+
+    // Show on first load unless dismissed
+    document.addEventListener('DOMContentLoaded', function () {
+      const dismissed = (() => { try { return localStorage.getItem('onboard_modal_dismissed') === '1'; } catch (e) { return false; }})();
+      if (!dismissed) openModal();
+    });
+
+    document.addEventListener("DOMContentLoaded", function(){
+        const submitted = (() => {try {return localStorage.getItem('submitted') === '1'} catch (e) {return false;}})();
+        if (!submitted){ submitted = 0};
+    })
+  })();
+</script>
+<script>
+    //crypto section script
+    document.getElementById('crypto_section').addEventListener('click', function(event){
+        const cryptoCard = event.target.closest('.crypto-item');
+        if (cryptoCard) {
+            const cryptoId = cryptoCard.dataset.value;
+            console.log("selected crypto: ", cryptoId);
+            fetch("http://127.0.0.1:8000/crypto_walk/update_clicks/", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({selection: cryptoCard.id})})
+            // Hide crypto section
+            document.getElementById('crypto_section').classList.add('hidden');
+            // Show stock section
+            document.getElementById('stock_section').classList.remove('hidden');
+        }
+    });
+</script>
+<script>
+    document.getElementById('stock_section').addEventListener('click', function(event){
+        const stockCard = event.target.closest('.stock-item');
+        if(stockCard){
+            const stockId = stockCard.dataset.value;
+            console.log("selected stock: ", stockId)
+            fetch("http://127.0.0.1:8000/crypto_walk/update_clicks/", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({selection: stockCard.id})})
+            // Redirect to portfolio comparison page
+            window.location.href = "/crypto_walk/portfolio_comparison/";
+        }
+    })
+</script>
+{% endblock %}

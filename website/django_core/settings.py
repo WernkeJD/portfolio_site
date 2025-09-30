@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-tvsr7dmeh6u^ho1dib&($7w76+ll_*8%)=j=6*mt^hm%b-s9q4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'portfolio-site-lajv.onrender.com']
+ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'portfolio-site-lajv.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -41,8 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tailwind',
+    'theme',
+    'crypto_walk',
     'main_site',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'django_browser_reload',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,7 +60,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += [
+        'django_browser_reload.middleware.BrowserReloadMiddleware',
+    ]
 
 ROOT_URLCONF = 'django_core.urls'
 
@@ -78,10 +92,25 @@ WSGI_APPLICATION = 'django_core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT")
     }
+}
+
+STORAGES = {
+
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
 
 
@@ -119,7 +148,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    BASE_DIR / "crypto_walk" / "templates",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -145,3 +179,6 @@ CSRF_TRUSTED_ORIGINS = [
     "https://portfolio-site-lajv.onrender.com",
     "http://localhost:8000",
 ]
+
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = os.environ.get("NPM_BIN_PATH")
