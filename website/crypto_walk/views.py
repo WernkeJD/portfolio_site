@@ -80,10 +80,8 @@ def pick_crypto(request: HttpRequest):
 
                     crypto1 = json_data[random.randint(0, len(json_data))]["id"]
                     crypto2 = json_data[random.randint(0, len(json_data))]["id"]
-                    # stock1 = Tickers.objects.get(id=(random.randint(42178, 45177))).ticker
-                    # stock2 = Tickers.objects.get(id=(random.randint(42178, 45177))).ticker
-                    stock1 = Tickers.objects.get(id=(random.randint(1, 3000))).ticker
-                    stock2 = Tickers.objects.get(id=(random.randint(1, 3000))).ticker
+                    stock1 = Tickers.objects.get(id=(random.randint(42178, 45177))).ticker
+                    stock2 = Tickers.objects.get(id=(random.randint(42178, 45177))).ticker
 
                     
                     coin_prices = get_coin_price([crypto1, crypto2])
