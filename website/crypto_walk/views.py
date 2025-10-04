@@ -177,7 +177,7 @@ def update_selections(request: HttpRequest) -> HttpResponse:
     
 @csrf_exempt
 def generate_portfolio_value(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
+    if request.method == "GET":
         today = datetime.date.today()
         yesterday = today - datetime.timedelta(days=1)
 
