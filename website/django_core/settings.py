@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-tvsr7dmeh6u^ho1dib&($7w76+ll_*8%)=j=6*mt^hm%b-s9q4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'portfolio-site-lajv.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'portfolio-site-lajv.onrender.com', '127.0.0.1', 'jacobwernke.com']
 
 
 # Application definition
@@ -92,20 +92,20 @@ WSGI_APPLICATION = 'django_core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
-        "CONN_MAX_AGE": 60,
-        "OPTIONS": {"sslmode": "require"},
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': os.environ.get("DB_NAME"),
+    #     'USER': os.environ.get("DB_USER"),
+    #     'PASSWORD': os.environ.get("DB_PASSWORD"),
+    #     'HOST': os.environ.get("DB_HOST"),
+    #     'PORT': os.environ.get("DB_PORT"),
+    #     "CONN_MAX_AGE": 60,
+    #     "OPTIONS": {"sslmode": "require"},
+    # }
 }
 
 STORAGES = {
@@ -153,7 +153,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "main_site"/"templates",
     BASE_DIR / "crypto_walk" / "templates",
 ]
 

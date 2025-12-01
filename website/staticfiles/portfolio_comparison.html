@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="container mx-auto py-10">
+        <h1 class="text-4xl font-bold text-center mb-8">Portfolio Value Comparison</h1>
+        <div class="bg-white/5 rounded-3xl shadow-2xl p-8 max-w-3xl mx-auto">
+            <canvas id="portfolioChart" class="w-full h-full block"></canvas>
+        </div>
+    </div>
+</body>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Example data, replace with actual data from Django context
+    const labels = {{ dates|safe }};
+    const cryptoData = {{ crypto_values|safe }};
+    const stockData = {{ stock_values|safe }};
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Crypto Portfolio',
+                data: cryptoData,
+                borderColor: 'rgb(99, 102, 241)',
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                tension: 0.4,
+            },
+            {
+                label: 'Stock Portfolio',
+                data: stockData,
+                borderColor: 'rgb(16, 185, 129)',
+                backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                tension: 0.4,
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white',
+                        font: { size: 18 }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Portfolio Value Over Time',
+                    color: 'white',
+                    font: { size: 22 }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: 'white' },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                y: {
+                    ticks: { color: 'white' },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                }
+            }
+        }   // ✅ this closing brace was missing
+    }; 
+
+    window.onload = function() {
+        const ctx = document.getElementById('portfolioChart').getContext('2d');
+        new Chart(ctx, config);
+    };
+</script>
+{% endblock %}

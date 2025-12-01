@@ -20,6 +20,9 @@ def home(request):
         'error_message': error_message,
     })
 
+def new_home(request):
+    return render(request, 'home_update.html')
+
 def contact_form(request: HttpRequest)-> JsonResponse:
     if request.method == 'POST':
         form = ContactForm(request.POST)

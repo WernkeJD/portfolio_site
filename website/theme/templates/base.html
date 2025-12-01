@@ -10,16 +10,17 @@
     {% block extra_head %}
     {% endblock %}
 </head>
-{% block body_class %}
-<body class="bg-gray-50 text-black font-serif leading-normal tracking-normal">
+<body class="{% block body_class %}bg-gray-50 text-black font-serif leading-normal tracking-normal{% endblock %}">
 
 <div class="container mx-auto">
+    {% block content %}
     <section class="flex items-center justify-center h-screen">
         <h1 class="text-5xl">Django + Tailwind = ❤️</h1>
     </section>
+    {% endblock %}
 </div>
-</body>
-{% endblock %}
+
 {% block extra_js %}
 {% endblock %}
+</body>
 </html>

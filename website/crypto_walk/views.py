@@ -238,6 +238,8 @@ def generate_portfolio_value(request: HttpRequest) -> HttpResponse:
         except Exception as e:
             print("Error creating portfolio value: ", e)
             return HttpResponse("Error creating portfolio value", status=500)
+    else:
+        return HttpResponse("Method not allowed", status=500)
 
 def portfolio_comparison(request: HttpRequest):
     # Get all portfolio entries ordered by date
