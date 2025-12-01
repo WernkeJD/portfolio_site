@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-tvsr7dmeh6u^ho1dib&($7w76+ll_*8%)=j=6*mt^hm%b-s9q4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'portfolio-site-lajv.onrender.com', '127.0.0.1', 'jacobwernke.com']
+ALLOWED_HOSTS = ['django-f31b4a90a5064fbe-324465057392.us-central1.run.app', 'portfolio-site-lajv.onrender.com', '127.0.0.1', 'www.jacobwernke.com']
 
 
 # Application definition
